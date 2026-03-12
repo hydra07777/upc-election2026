@@ -9,7 +9,7 @@ const lenis = new Lenis()
 
 lenis.on('scroll', ScrollTrigger.update)
 
-gsap.ticker.add((time)=>{
+gsap.ticker.add((time) => {
   lenis.raf(time * 1000)
 })
 
@@ -77,3 +77,31 @@ revealElements.forEach(el => {
     }
   });
 });
+
+// Countdown Timer
+const countDownDate = new Date();
+countDownDate.setDate(countDownDate.getDate() + 14); // 2 weeks from now
+
+const updateTimer = () => {
+  const now = new Date().getTime();
+  const distance = countDownDate.getTime() - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("days").innerText = days.toString().padStart(2, '0');
+  document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+  document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+  document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+  if (distance < 0) {
+    clearInterval(timerInterval);
+    document.getElementById("timer").innerHTML = "<div class='time-block' style='width: auto; padding: 1.5rem 3rem;'><span class='time-value'>ELECTION DAY</span></div>";
+  }
+};
+
+updateTimer(); // Initial call
+const timerInterval = setInterval(updateTimer, 1000);
+
