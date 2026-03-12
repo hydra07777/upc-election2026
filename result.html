@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Standings - UPC Elections</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="result-page">
+    <div class="custom-cursor"></div>
+    <div class="noise-overlay"></div>
+
+    <nav class="site-nav">
+        <div class="nav-brand">UPC '26 ELECTIONS</div>
+        <div class="nav-links">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </nav>
+
+    <main class="result-main">
+        <section class="result-hero">
+            <div class="result-header">
+                <h1 class="result-title">LIVE<br><span class="accent">STANDINGS</span></h1>
+                <p class="result-desc">Real-time voting poll updates. See where your candidate stands.</p>
+            </div>
+        </section>
+
+        <section class="standings-board">
+            <div class="results-container">
+
+                <!-- Candidate 1 -->
+                <div class="result-row">
+                    <div class="result-info">
+                        <span class="result-position">1ST</span>
+                        <h3 class="result-name">Samira Tariq</h3>
+                        <span class="result-percentage" data-target="32">0</span><span>%</span>
+                    </div>
+                    <div class="result-bar-container">
+                        <div class="result-bar" data-width="32%"></div>
+                    </div>
+                </div>
+
+                <!-- Candidate 2 -->
+                <div class="result-row">
+                    <div class="result-info">
+                        <span class="result-position">2ND</span>
+                        <h3 class="result-name">Alex Mercer</h3>
+                        <span class="result-percentage" data-target="28">0</span><span>%</span>
+                    </div>
+                    <div class="result-bar-container">
+                        <div class="result-bar" data-width="28%"></div>
+                    </div>
+                </div>
+
+                <!-- Candidate 3 -->
+                <div class="result-row">
+                    <div class="result-info">
+                        <span class="result-position">3RD</span>
+                        <h3 class="result-name">Jordan Lee</h3>
+                        <span class="result-percentage" data-target="20">0</span><span>%</span>
+                    </div>
+                    <div class="result-bar-container">
+                        <div class="result-bar" data-width="20%"></div>
+                    </div>
+                </div>
+
+                <!-- Candidate 4 -->
+                <div class="result-row">
+                    <div class="result-info">
+                        <span class="result-position">4TH</span>
+                        <h3 class="result-name">Taylor Reed</h3>
+                        <span class="result-percentage" data-target="12">0</span><span>%</span>
+                    </div>
+                    <div class="result-bar-container">
+                        <div class="result-bar" data-width="12%"></div>
+                    </div>
+                </div>
+
+                <!-- Candidate 5 -->
+                <div class="result-row">
+                    <div class="result-info">
+                        <span class="result-position">5TH</span>
+                        <h3 class="result-name">Casey Novak</h3>
+                        <span class="result-percentage" data-target="8">0</span><span>%</span>
+                    </div>
+                    <div class="result-bar-container">
+                        <div class="result-bar" data-width="8%"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="vote-cta-section">
+            <div class="cta-content">
+                <h2 class="cta-heading">Not Voted Yet?</h2>
+                <a href="vote.html" class="btn-massive cta-btn">VOTE NOW!</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="minimal-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 UPC Elections - Official Portal.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./result.js"></script>
+</body>
+
+</html>
