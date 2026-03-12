@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vote Now - UPC Elections</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="vote-page">
+    <div class="custom-cursor"></div>
+    <div class="noise-overlay"></div>
+
+    <nav class="site-nav">
+        <div class="nav-brand">UPC '26 ELECTIONS</div>
+        <div class="nav-links">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </nav>
+
+    <main class="vote-main">
+        <form id="voteForm" class="vote-container">
+
+            <!-- Progress Indicator -->
+            <div class="vote-progress">
+                <span class="step-indicator active" data-step="1">01 / FACULTY</span>
+                <span class="step-indicator" data-step="2">02 / YEAR</span>
+                <span class="step-indicator" data-step="3">03 / PRESIDENT</span>
+            </div>
+
+            <!-- Step 1: Faculty -->
+            <section class="vote-step active" id="step-1">
+                <div class="step-header">
+                    <h1 class="step-title">SELECT<br><span class="accent">FACULTY</span></h1>
+                    <p class="step-desc">Choose your registered academic faculty.</p>
+                </div>
+                <div class="options-grid">
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Engineering" required>
+                        <span class="radio-content">ENGINEERING</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Law">
+                        <span class="radio-content">LAW</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Arts">
+                        <span class="radio-content">ARTS & HUMANITIES</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Science">
+                        <span class="radio-content">SCIENCE</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Business">
+                        <span class="radio-content">BUSINESS</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="faculty" value="Medicine">
+                        <span class="radio-content">MEDICINE</span>
+                    </label>
+                </div>
+                <div class="step-actions">
+                    <button type="button" class="btn-primary next-step" disabled>CONTINUE →</button>
+                </div>
+            </section>
+
+            <!-- Step 2: Year -->
+            <section class="vote-step" id="step-2">
+                <div class="step-header">
+                    <h1 class="step-title">ACADEMIC<br><span class="accent">YEAR</span></h1>
+                    <p class="step-desc">Select your current year of study.</p>
+                </div>
+                <div class="options-grid year-grid">
+                    <label class="brutalist-radio">
+                        <input type="radio" name="year" value="1st Year" required>
+                        <span class="radio-content">1ST</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="year" value="2nd Year">
+                        <span class="radio-content">2ND</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="year" value="3rd Year">
+                        <span class="radio-content">3RD</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="year" value="4th Year">
+                        <span class="radio-content">4TH</span>
+                    </label>
+                    <label class="brutalist-radio">
+                        <input type="radio" name="year" value="Postgraduate">
+                        <span class="radio-content">POSTGRAD</span>
+                    </label>
+                </div>
+                <div class="step-actions split">
+                    <button type="button" class="btn-secondary prev-step">← BACK</button>
+                    <button type="button" class="btn-primary next-step" disabled>CONTINUE →</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Candidate -->
+            <section class="vote-step" id="step-3">
+                <div class="step-header">
+                    <h1 class="step-title">PRESIDENTIAL<br><span class="accent">CHOICE</span></h1>
+                    <p class="step-desc">Select a candidate for the presidency.</p>
+                </div>
+                <div class="candidates-selection">
+                    <label class="candidate-radio">
+                        <input type="radio" name="candidate" value="Alex Mercer" required>
+                        <div class="candidate-card">
+                            <div class="candidate-img-placeholder">01</div>
+                            <div class="candidate-details">
+                                <h3>Alex Mercer</h3>
+                                <p>Financial Clarity</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="candidate-radio">
+                        <input type="radio" name="candidate" value="Jordan Lee">
+                        <div class="candidate-card">
+                            <div class="candidate-img-placeholder">02</div>
+                            <div class="candidate-details">
+                                <h3>Jordan Lee</h3>
+                                <p>Digital Modernization</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="candidate-radio">
+                        <input type="radio" name="candidate" value="Samira Tariq">
+                        <div class="candidate-card">
+                            <div class="candidate-img-placeholder">03</div>
+                            <div class="candidate-details">
+                                <h3>Samira Tariq</h3>
+                                <p>Academic Reform</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="candidate-radio">
+                        <input type="radio" name="candidate" value="Casey Novak">
+                        <div class="candidate-card">
+                            <div class="candidate-img-placeholder">04</div>
+                            <div class="candidate-details">
+                                <h3>Casey Novak</h3>
+                                <p>Green Campus</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="candidate-radio">
+                        <input type="radio" name="candidate" value="Taylor Reed">
+                        <div class="candidate-card">
+                            <div class="candidate-img-placeholder">05</div>
+                            <div class="candidate-details">
+                                <h3>Taylor Reed</h3>
+                                <p>Student Inclusivity</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="step-actions split">
+                    <button type="button" class="btn-secondary prev-step">← BACK</button>
+                    <button type="submit" class="btn-massive submit-vote" disabled>CAST VOTE</button>
+                </div>
+            </section>
+
+            <!-- Step 4: Confirmation -->
+            <section class="vote-step" id="step-4">
+                <div class="confirmation-content">
+                    <h1 class="success-title">APPLICATION<br><span class="accent">SENT</span></h1>
+                    <p class="success-message">Your voice has been recorded. Thank you for participating in the UPC '26
+                        Elections.</p>
+                    <div class="receipt">
+                        <div class="receipt-row"><span>FACULTY:</span> <span id="res-faculty">-</span></div>
+                        <div class="receipt-row"><span>YEAR:</span> <span id="res-year">-</span></div>
+                        <div class="receipt-row"><span>CANDIDATE:</span> <span id="res-candidate"
+                                class="accent">-</span></div>
+                    </div>
+                    <a href="index.html" class="btn-primary">RETURN HOME</a>
+                </div>
+            </section>
+
+        </form>
+    </main>
+
+    <script type="module" src="./vote.js"></script>
+</body>
+
+</html>
