@@ -1,0 +1,79 @@
+import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+// Initialize Lenis for smooth scroll
+const lenis = new Lenis()
+
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time)=>{
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)
+
+// Custom Cursor
+const cursor = document.querySelector('.custom-cursor');
+const links = document.querySelectorAll('a, .btn-massive, .card');
+
+document.addEventListener('mousemove', (e) => {
+  gsap.to(cursor, {
+    x: e.clientX,
+    y: e.clientY,
+    duration: 0.1,
+    ease: 'power2.out'
+  });
+});
+
+links.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    gsap.to(cursor, {
+      width: 60,
+      height: 60,
+      backgroundColor: 'transparent',
+      border: '2px solid var(--accent-color)',
+      duration: 0.3
+    });
+  });
+  link.addEventListener('mouseleave', () => {
+    gsap.to(cursor, {
+      width: 20,
+      height: 20,
+      backgroundColor: 'var(--accent-color)',
+      border: 'none',
+      duration: 0.3
+    });
+  });
+});
+
+// Parallax Hero
+gsap.to('.hero-title', {
+  yPercent: 50,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.hero-section',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: true
+  }
+});
+
+// Reveal Animations
+const revealElements = document.querySelectorAll('.reveal');
+
+revealElements.forEach(el => {
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 80%',
+      toggleActions: 'play none none reverse'
+    }
+  });
+});

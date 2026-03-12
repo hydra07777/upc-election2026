@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UPC Elections - Vote for Change</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="custom-cursor"></div>
+    <div class="noise-overlay"></div>
+    
+    <nav class="site-nav">
+      <div class="nav-brand">UPC '26</div>
+      <div class="nav-links">
+        <a href="#platform">Platform</a>
+        <a href="#candidates">Candidates</a>
+        <a href="#vote" class="btn-primary">Vote Now</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title" data-speed="calc(1 - 0.5)">
+            <span class="line">RADICAL</span>
+            <span class="line accent">TRANSPARENCY.</span>
+            <span class="line">FOR THE</span>
+            <span class="line">STUDENTS.</span>
+          </h1>
+          <p class="hero-subtitle">The old ways are broken. It's time for an editorial shift in how our university is run. Demand better. Expect more.</p>
+        </div>
+        <div class="scroll-indicator">
+          <span>SCROLL</span>
+          <div class="line-down"></div>
+        </div>
+      </section>
+
+      <section id="platform" class="platform-section">
+        <h2 class="section-title">OUR PLATFORM</h2>
+        <div class="grid platform-grid">
+          <div class="card reveal">
+            <div class="card-number">01</div>
+            <h3>Financial Clarity</h3>
+            <p>Complete open-book budgeting for all student union funds. See exactly where your tuition dollars go.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-number">02</div>
+            <h3>Academic Reform</h3>
+            <p>Pushing for a more flexible grading system and mandatory lecture recordings across all faculties.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-number">03</div>
+            <h3>Campus Life</h3>
+            <p>Revitalizing student spaces with 24/7 access to libraries and upgraded creative studios.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="candidates" class="candidates-section">
+        <h2 class="section-title">THE TICKET</h2>
+        <div class="candidate-showcase">
+          <div class="candidate reveal">
+            <div class="candidate-image-placeholder"></div>
+            <div class="candidate-info">
+              <h3>Alex Mercer</h3>
+              <p class="role">For President</p>
+              <p class="bio">A third-year law student with a track record of holding the administration accountable.</p>
+            </div>
+          </div>
+          <div class="candidate reveal">
+            <div class="candidate-image-placeholder"></div>
+            <div class="candidate-info">
+              <h3>Jordan Lee</h3>
+              <p class="role">For Vice President</p>
+              <p class="bio">Engineering major focused on modernizing campus infrastructure and digital services.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="marquee-section">
+        <div class="marquee">
+          <span>VOTE FOR CHANGE • UPC '26 • RADICAL TRANSPARENCY • VOTE FOR CHANGE • UPC '26 • RADICAL TRANSPARENCY • </span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <h2>It's Time.</h2>
+        <a href="#vote" class="btn-massive">VOTE NOW</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 UPC Elections - Radical Transparency Ticket.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
