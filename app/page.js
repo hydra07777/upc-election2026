@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import HomeClientEffects from './_components/HomeClientEffects';
+import { createServerSupabaseClient } from '../lib/supabase/server';
 
-export default function HomePage() {
+export default async function HomePage() {
+    const supabase = await createServerSupabaseClient();
+
+    const { data: electionSetting } = await supabase
+        .from('settings')
+        .select('value')
+        .eq('key', 'date_election')
+        .maybeSingle();
+
+    const countdownDate = electionSetting?.value ?? null;
+
     return (
         <>
             <HomeClientEffects />
@@ -44,7 +55,7 @@ export default function HomePage() {
                     <div className="countdown-container">
                         <h3 className="countdown-subtitle">Election</h3>
                         <h2 className="countdown-title">COUNTDOWN</h2>
-                        <div className="timer" id="timer">
+                        <div className="timer" id="timer" data-countdown-date={countdownDate ?? undefined}>
                             <div className="time-block">
                                 <span className="time-value" id="days">
                                     14
@@ -109,7 +120,15 @@ export default function HomePage() {
                     <h2 className="section-title">THE CANDIDATES</h2>
                     <div className="candidate-showcase">
                         <div className="candidate reveal">
-                            <div className="candidate-image-placeholder">
+                            <div
+                                className="candidate-image-placeholder"
+                                style={{
+                                    backgroundImage:
+                                        "url('https://res.cloudinary.com/dnj1qfnrv/image/upload/v1773444138/upc-election/candidats/cvxryal72tnmfs4zg9x3.jpg')",
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                }}
+                            >
                                 <div className="candidate-number">01</div>
                             </div>
                             <div className="candidate-info">

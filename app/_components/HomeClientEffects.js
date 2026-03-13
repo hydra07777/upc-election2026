@@ -105,8 +105,12 @@ export default function HomeClientEffects() {
     let timerInterval;
 
     if (timerEl && daysEl && hoursEl && minutesEl && secondsEl) {
-      const countDownDate = new Date();
-      countDownDate.setDate(countDownDate.getDate() + 14);
+      const attrDate = timerEl.getAttribute('data-countdown-date');
+      const parsed = attrDate ? new Date(attrDate) : null;
+      const countDownDate = parsed && !Number.isNaN(parsed.getTime()) ? parsed : new Date();
+      if (!(parsed && !Number.isNaN(parsed.getTime()))) {
+        countDownDate.setDate(countDownDate.getDate() + 14);
+      }
 
       const updateTimer = () => {
         const now = new Date().getTime();

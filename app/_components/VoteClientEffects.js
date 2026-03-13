@@ -73,22 +73,22 @@ export default function VoteClientEffects() {
         };
 
         setupValidation('step-1', 'faculty');
-        setupValidation('step-2', 'year');
+        setupValidation('step-2', 'grade');
         setupValidation('step-3', 'candidate');
 
         const onSubmit = (e) => {
             e.preventDefault();
 
             const facultyVal = document.querySelector('input[name="faculty"]:checked')?.value || 'N/A';
-            const yearVal = document.querySelector('input[name="year"]:checked')?.value || 'N/A';
+            const gradeVal = document.querySelector('input[name="grade"]:checked')?.value || 'N/A';
             const candidateVal = document.querySelector('input[name="candidate"]:checked')?.value || 'N/A';
 
             const facEl = document.getElementById('res-faculty');
-            const yearEl = document.getElementById('res-year');
+            const gradeEl = document.getElementById('res-grade');
             const candEl = document.getElementById('res-candidate');
 
             if (facEl) facEl.innerText = facultyVal.toUpperCase();
-            if (yearEl) yearEl.innerText = yearVal.toUpperCase();
+            if (gradeEl) gradeEl.innerText = gradeVal.toUpperCase();
             if (candEl) candEl.innerText = candidateVal.toUpperCase();
 
             goToStep(4);

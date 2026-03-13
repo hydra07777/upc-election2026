@@ -1,11 +1,33 @@
 import Link from 'next/link';
 import VoteClientEffects from '../_components/VoteClientEffects';
+import { createServerSupabaseClient } from '../../lib/supabase/server';
 
 export const metadata = {
     title: 'Vote Now - UPC Elections',
 };
 
-export default function VotePage() {
+function getRowLabel(row) {
+    if (!row || typeof row !== 'object') return '';
+    return String(row.nom ?? row.name ?? row.label ?? row.title ?? row.titre ?? row.code ?? row.id ?? '').trim();
+}
+
+export default async function VotePage() {
+    const supabase = await createServerSupabaseClient();
+
+    const [facultyRes, gradeRes, candidatRes] = await Promise.all([
+        supabase.from('faculty').select('*').order('nom', { ascending: true }),
+        supabase.from('grade').select('*').order('nom', { ascending: true }),
+        supabase.from('candidat').select('id, nom, slogan, photo_url').order('created_at', { ascending: true }),
+    ]);
+
+    if (facultyRes.error) throw new Error(`faculty select failed: ${facultyRes.error.message}`);
+    if (gradeRes.error) throw new Error(`grade select failed: ${gradeRes.error.message}`);
+    if (candidatRes.error) throw new Error(`candidat select failed: ${candidatRes.error.message}`);
+
+    const faculties = facultyRes.data ?? [];
+    const grades = gradeRes.data ?? [];
+    const candidats = candidatRes.data ?? [];
+
     return (
         <div className="vote-page">
             <VoteClientEffects />
@@ -27,7 +49,7 @@ export default function VotePage() {
                             01 / FACULTY
                         </span>
                         <span className="step-indicator" data-step="2">
-                            02 / YEAR
+                            02 / GRADE
                         </span>
                         <span className="step-indicator" data-step="3">
                             03 / PRESIDENT
@@ -44,30 +66,18 @@ export default function VotePage() {
                             <p className="step-desc">Choose your registered academic faculty.</p>
                         </div>
                         <div className="options-grid">
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Engineering" required />
-                                <span className="radio-content">ENGINEERING</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Law" />
-                                <span className="radio-content">LAW</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Arts" />
-                                <span className="radio-content">ARTS &amp; HUMANITIES</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Science" />
-                                <span className="radio-content">SCIENCE</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Business" />
-                                <span className="radio-content">BUSINESS</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="faculty" value="Medicine" />
-                                <span className="radio-content">MEDICINE</span>
-                            </label>
+                            {(faculties ?? []).map((row, idx) => {
+                                const label = getRowLabel(row);
+                                if (!label) return null;
+
+                                const isFirst = idx === 0;
+                                return (
+                                    <label className="brutalist-radio" key={row.id ?? label}>
+                                        <input type="radio" name="faculty" value={label} required={isFirst} />
+                                        <span className="radio-content">{label.toUpperCase()}</span>
+                                    </label>
+                                );
+                            })}
                         </div>
                         <div className="step-actions">
                             <button type="button" className="btn-primary next-step" disabled>
@@ -81,31 +91,23 @@ export default function VotePage() {
                             <h1 className="step-title">
                                 ACADEMIC
                                 <br />
-                                <span className="accent">YEAR</span>
+                                <span className="accent">GRADE</span>
                             </h1>
                             <p className="step-desc">Select your current year of study.</p>
                         </div>
                         <div className="options-grid year-grid">
-                            <label className="brutalist-radio">
-                                <input type="radio" name="year" value="1st Year" required />
-                                <span className="radio-content">1ST</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="year" value="2nd Year" />
-                                <span className="radio-content">2ND</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="year" value="3rd Year" />
-                                <span className="radio-content">3RD</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="year" value="4th Year" />
-                                <span className="radio-content">4TH</span>
-                            </label>
-                            <label className="brutalist-radio">
-                                <input type="radio" name="year" value="Postgraduate" />
-                                <span className="radio-content">POSTGRAD</span>
-                            </label>
+                            {(grades ?? []).map((row, idx) => {
+                                const label = getRowLabel(row);
+                                if (!label) return null;
+
+                                const isFirst = idx === 0;
+                                return (
+                                    <label className="brutalist-radio" key={row.id ?? label}>
+                                        <input type="radio" name="grade" value={label} required={isFirst} />
+                                        <span className="radio-content">{label.toUpperCase()}</span>
+                                    </label>
+                                );
+                            })}
                         </div>
                         <div className="step-actions split">
                             <button type="button" className="btn-secondary prev-step">
@@ -127,56 +129,23 @@ export default function VotePage() {
                             <p className="step-desc">Select a candidate for the presidency.</p>
                         </div>
                         <div className="candidates-selection">
-                            <label className="candidate-radio">
-                                <input type="radio" name="candidate" value="Alex Mercer" required />
-                                <div className="candidate-card">
-                                    <div className="candidate-img-placeholder">01</div>
-                                    <div className="candidate-details">
-                                        <h3>Alex Mercer</h3>
-                                        <p>Financial Clarity</p>
-                                    </div>
-                                </div>
-                            </label>
-                            <label className="candidate-radio">
-                                <input type="radio" name="candidate" value="Jordan Lee" />
-                                <div className="candidate-card">
-                                    <div className="candidate-img-placeholder">02</div>
-                                    <div className="candidate-details">
-                                        <h3>Jordan Lee</h3>
-                                        <p>Digital Modernization</p>
-                                    </div>
-                                </div>
-                            </label>
-                            <label className="candidate-radio">
-                                <input type="radio" name="candidate" value="Samira Tariq" />
-                                <div className="candidate-card">
-                                    <div className="candidate-img-placeholder">03</div>
-                                    <div className="candidate-details">
-                                        <h3>Samira Tariq</h3>
-                                        <p>Academic Reform</p>
-                                    </div>
-                                </div>
-                            </label>
-                            <label className="candidate-radio">
-                                <input type="radio" name="candidate" value="Casey Novak" />
-                                <div className="candidate-card">
-                                    <div className="candidate-img-placeholder">04</div>
-                                    <div className="candidate-details">
-                                        <h3>Casey Novak</h3>
-                                        <p>Green Campus</p>
-                                    </div>
-                                </div>
-                            </label>
-                            <label className="candidate-radio">
-                                <input type="radio" name="candidate" value="Taylor Reed" />
-                                <div className="candidate-card">
-                                    <div className="candidate-img-placeholder">05</div>
-                                    <div className="candidate-details">
-                                        <h3>Taylor Reed</h3>
-                                        <p>Student Inclusivity</p>
-                                    </div>
-                                </div>
-                            </label>
+                            {(candidats ?? []).map((row, idx) => {
+                                const displayNumber = String(idx + 1).padStart(2, '0');
+                                const isFirst = idx === 0;
+
+                                return (
+                                    <label className="candidate-radio" key={row.id ?? row.nom ?? idx}>
+                                        <input type="radio" name="candidate" value={row.nom ?? ''} required={isFirst} />
+                                        <div className="candidate-card">
+                                            <div className="candidate-img-placeholder">{displayNumber}</div>
+                                            <div className="candidate-details">
+                                                <h3>{row.nom}</h3>
+                                                <p>{row.slogan ?? ''}</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                );
+                            })}
                         </div>
                         <div className="step-actions split">
                             <button type="button" className="btn-secondary prev-step">
@@ -203,7 +172,7 @@ export default function VotePage() {
                                     <span>FACULTY:</span> <span id="res-faculty">-</span>
                                 </div>
                                 <div className="receipt-row">
-                                    <span>YEAR:</span> <span id="res-year">-</span>
+                                    <span>GRADE:</span> <span id="res-grade">-</span>
                                 </div>
                                 <div className="receipt-row">
                                     <span>CANDIDATE:</span> <span id="res-candidate" className="accent">

@@ -1,11 +1,19 @@
 import Link from 'next/link';
 import ResultClientEffects from '../_components/ResultClientEffects';
+import { createServerSupabaseClient } from '../../lib/supabase/server';
 
 export const metadata = {
     title: 'Live Standings - UPC Elections',
 };
 
-export default function ResultPage() {
+export default async function ResultPage() {
+    const supabase = await createServerSupabaseClient();
+
+    const { data: results } = await supabase
+        .from('resultats')
+        .select('id, nom, pourcentage, nb_votes')
+        .order('nb_votes', { ascending: false });
+
     return (
         <div className="result-page">
             <ResultClientEffects />
@@ -34,75 +42,28 @@ export default function ResultPage() {
 
                 <section className="standings-board">
                     <div className="results-container">
-                        <div className="result-row">
-                            <div className="result-info">
-                                <span className="result-position">1ST</span>
-                                <h3 className="result-name">Samira Tariq</h3>
-                                <span className="result-percentage" data-target="32">
-                                    0
-                                </span>
-                                <span>%</span>
-                            </div>
-                            <div className="result-bar-container">
-                                <div className="result-bar" data-width="32%" />
-                            </div>
-                        </div>
+                        {(results ?? []).map((row, idx) => {
+                            const pct = typeof row.pourcentage === 'number' ? row.pourcentage : parseFloat(row.pourcentage ?? '0');
+                            const safePct = Number.isFinite(pct) ? pct : 0;
 
-                        <div className="result-row">
-                            <div className="result-info">
-                                <span className="result-position">2ND</span>
-                                <h3 className="result-name">Alex Mercer</h3>
-                                <span className="result-percentage" data-target="28">
-                                    0
-                                </span>
-                                <span>%</span>
-                            </div>
-                            <div className="result-bar-container">
-                                <div className="result-bar" data-width="28%" />
-                            </div>
-                        </div>
+                            const positionLabel = idx === 0 ? '1ST' : idx === 1 ? '2ND' : idx === 2 ? '3RD' : `${idx + 1}TH`;
 
-                        <div className="result-row">
-                            <div className="result-info">
-                                <span className="result-position">3RD</span>
-                                <h3 className="result-name">Jordan Lee</h3>
-                                <span className="result-percentage" data-target="20">
-                                    0
-                                </span>
-                                <span>%</span>
-                            </div>
-                            <div className="result-bar-container">
-                                <div className="result-bar" data-width="20%" />
-                            </div>
-                        </div>
-
-                        <div className="result-row">
-                            <div className="result-info">
-                                <span className="result-position">4TH</span>
-                                <h3 className="result-name">Taylor Reed</h3>
-                                <span className="result-percentage" data-target="12">
-                                    0
-                                </span>
-                                <span>%</span>
-                            </div>
-                            <div className="result-bar-container">
-                                <div className="result-bar" data-width="12%" />
-                            </div>
-                        </div>
-
-                        <div className="result-row">
-                            <div className="result-info">
-                                <span className="result-position">5TH</span>
-                                <h3 className="result-name">Casey Novak</h3>
-                                <span className="result-percentage" data-target="8">
-                                    0
-                                </span>
-                                <span>%</span>
-                            </div>
-                            <div className="result-bar-container">
-                                <div className="result-bar" data-width="8%" />
-                            </div>
-                        </div>
+                            return (
+                                <div className="result-row" key={row.id}>
+                                    <div className="result-info">
+                                        <span className="result-position">{positionLabel}</span>
+                                        <h3 className="result-name">{row.nom}</h3>
+                                        <span className="result-percentage" data-target={Math.round(safePct)}>
+                                            0
+                                        </span>
+                                        <span>%</span>
+                                    </div>
+                                    <div className="result-bar-container">
+                                        <div className="result-bar" data-width={`${safePct}%`} />
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </section>
 
