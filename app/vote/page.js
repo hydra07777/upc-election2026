@@ -40,9 +40,24 @@ export default async function VotePage() {
             <nav className="site-nav">
                 <div className="nav-brand">UPC '26 ELECTIONS</div>
                 <div className="nav-links">
-                    <Link href="/">← Back to Home</Link>
+                    <a href="#about">About</a>
+                    <a href="#candidates">Candidates</a>
+                    <a href="#countdown" className="btn-primary">Countdown</a>
                 </div>
+                {/* ✅ Hamburger hors du mix-blend-mode */}
+                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                    <span /><span /><span />
+                </button>
             </nav>
+
+            <div className="nav-mobile-menu" id="nav-mobile-menu">
+                <a href="#about" className="mobile-link">ABOUT</a>
+                <a href="#candidates" className="mobile-link">CANDIDATES</a>
+                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTE NOW →</a>
+            </div>
+
+
 
             <main className="vote-main">
                 <form id="voteForm" className="vote-container">
@@ -188,7 +203,9 @@ export default async function VotePage() {
                                     <button id="share-whatsapp" className="btn-share whatsapp">
                                         📲 WHATSAPP
                                     </button>
-
+                                    <button id="share-copy" className="btn-share copy">
+                                        🔗 COPY LINK
+                                    </button>
                                 </div>
                                 <span id="copy-confirm" className="copy-confirm">✓ COPIED TO CLIPBOARD</span>
                             </div>
