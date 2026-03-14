@@ -140,6 +140,37 @@ export default function HomeClientEffects() {
       updateTimer();
       timerInterval = setInterval(updateTimer, 1000);
     }
+    // ✅ Hamburger menu
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    let menuOpen = false;
+
+    const toggleMenu = () => {
+      menuOpen = !menuOpen;
+      hamburger?.classList.toggle('open', menuOpen);
+      mobileMenu?.classList.toggle('open', menuOpen);
+      // Bloque le scroll quand menu ouvert
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    };
+
+    const closeMenu = () => {
+      menuOpen = false;
+      hamburger?.classList.remove('open');
+      mobileMenu?.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    hamburger?.addEventListener('click', toggleMenu);
+
+    // Ferme le menu quand on clique un lien
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    const closeBtn = document.getElementById('nav-mobile-close');
+    closeBtn?.addEventListener('click', closeMenu);
 
     return () => {
       if (timerInterval) clearInterval(timerInterval);
@@ -156,7 +187,9 @@ export default function HomeClientEffects() {
       } catch {
         // ignore
       }
-
+      hamburger?.removeEventListener('click', toggleMenu);
+      mobileLinks.forEach((link) => link.removeEventListener('click', closeMenu));
+      document.body.style.overflow = ''; // sécurité
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
