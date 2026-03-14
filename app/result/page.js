@@ -54,9 +54,23 @@ export default async function ResultPage() {
             <nav className="site-nav">
                 <div className="nav-brand">UPC '26 ELECTIONS</div>
                 <div className="nav-links">
-                    <Link href="/">← Back to Home</Link>
+                    <a href="#about">About</a>
+                    <a href="#candidates">Candidates</a>
+                    <a href="#countdown" className="btn-primary">Countdown</a>
                 </div>
+                {/* ✅ Hamburger */}
+                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                    <span /><span /><span />
+                </button>
             </nav>
+
+            {/* ✅ Menu mobile overlay */}
+            <div className="nav-mobile-menu" id="nav-mobile-menu">
+                <a href="#about" className="mobile-link">ABOUT</a>
+                <a href="#candidates" className="mobile-link">CANDIDATES</a>
+                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
+                <a href="/vote" className="mobile-link accent">VOTE NOW →</a>
+            </div>
 
             <main className="result-main">
                 <section className="result-hero">
@@ -83,13 +97,12 @@ export default async function ResultPage() {
                                         {ordinals[idx] ?? `${idx + 1}TH`}
                                     </span>
                                     <h3 className="result-name">{candidate.nom}</h3>
-                                    <span
-                                        className="result-percentage"
-                                        data-target={candidate.percentage}
-                                    >
-                                        0
-                                    </span>
-                                    <span>%</span>
+                                    <div className="result-percentage-row">
+                                        <span className="result-percentage" data-target={candidate.percentage}>
+                                            0
+                                        </span>
+                                        <span>%</span>
+                                    </div>
                                 </div>
                                 {/* ✅ Votes absolus sous le nom */}
                                 <p className="result-votes-count">
