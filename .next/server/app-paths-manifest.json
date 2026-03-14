@@ -1,5 +1,6 @@
 {
+  "/vote/page": "app/vote/page.js",
   "/page": "app/page.js",
   "/candidate/page": "app/candidate/page.js",
-  "/admin/candidats/page": "app/admin/candidats/page.js"
+  "/result/page": "app/result/page.js"
 }

@@ -1,30 +1,15 @@
 {
   "pages": {
-    "/api/cloudinary/sign/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/cloudinary/sign/route.js"
-    ],
-    "/api/admin/candidats/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/candidats/route.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/layout": [
+    "/vote/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/layout.js"
-    ],
-    "/admin/candidats/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/candidats/page.js"
+      "static/chunks/app/vote/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
@@ -35,6 +20,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/candidate/page.js"
+    ],
+    "/result/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/result/page.js"
     ]
   }
 }

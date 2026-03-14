@@ -5,13 +5,14 @@ import { createServerSupabaseClient } from '../lib/supabase/server';
 export default async function HomePage() {
     const supabase = await createServerSupabaseClient();
 
-    const { data: electionSetting } = await supabase
+    const data = await supabase
         .from('settings')
         .select('value')
         .eq('key', 'date_election')
         .maybeSingle();
-
-    const countdownDate = electionSetting?.value ?? null;
+    const { value } = data.data
+    console.log(value)
+    const countdownDate = value ?? null;
 
     return (
         <>

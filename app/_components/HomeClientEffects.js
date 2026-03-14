@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+
 export default function HomeClientEffects() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -106,7 +107,10 @@ export default function HomeClientEffects() {
 
     if (timerEl && daysEl && hoursEl && minutesEl && secondsEl) {
       const attrDate = timerEl.getAttribute('data-countdown-date');
+
+
       const parsed = attrDate ? new Date(attrDate) : null;
+
       const countDownDate = parsed && !Number.isNaN(parsed.getTime()) ? parsed : new Date();
       if (!(parsed && !Number.isNaN(parsed.getTime()))) {
         countDownDate.setDate(countDownDate.getDate() + 14);

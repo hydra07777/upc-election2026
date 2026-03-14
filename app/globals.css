@@ -1,7 +1,9 @@
 :root {
-  --bg-color: #f4f4f0;
-  --text-color: #111111;
-  --accent-color: #ff3300;
+  --bg-color: #FAFAF8;
+  --text-color: #1A1A2E;
+  --accent-color: #C8281E;      /* Rouge UPC */
+  --accent-secondary: #F0A500;  /* Jaune/Orange UPC */
+  --accent-blue: #1B4D8E;  
   --font-display: "Playfair Display", serif;
   --font-body: "Space Mono", monospace;
   --grid-gap: 2rem;
@@ -276,7 +278,7 @@ section {
 }
 
 .time-block {
-  background-color: #ffc107;
+  background-color: var(--accent-secondary);
   color: #111;
   border-radius: 12px;
   padding: 1.5rem 1rem;
@@ -306,7 +308,7 @@ section {
 }
 
 .separator {
-  color: #ffc107;
+  color: var(--accent-secondary);
   font-size: 3rem;
   font-weight: 900;
   margin: 0 0.5rem;
@@ -385,10 +387,13 @@ section {
 .candidate-image-placeholder {
   width: 100%;
   aspect-ratio: 3/4;
+  max-height: 700px; 
   background-color: #ccc;
   border: var(--border-style);
   box-shadow: 20px 20px 0 var(--accent-color);
   /* Brutalist shadow */
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 .candidate-info h3 {
@@ -724,6 +729,30 @@ footer {
   }
 }
 
+@media (max-width: 768px) {
+    .candidate,
+    .candidate:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        direction: ltr;
+    }
+
+    .candidate-image-placeholder {
+        width: 100%;
+        max-height: 350px;     /* ✅ Compact sur mobile */
+        aspect-ratio: 1;    /* ✅ Format paysage, moins imposant */
+        box-shadow: 6px 6px 0 var(--accent-color);
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    .candidate-info h3 {
+        font-size: 2.5rem;
+    }
+
+    
+}
+
 /* Vote Page Styles */
 .vote-page {
   background-color: var(--bg-color);
@@ -769,7 +798,7 @@ footer {
 }
 
 .step-indicator.active {
-  color: var(--accent-color);
+  color: var(--accent-blue);
 }
 
 .vote-step {
@@ -806,7 +835,7 @@ footer {
 .step-desc {
   font-size: 1.5rem;
   font-weight: 700;
-  border-left: 2px solid var(--accent-color);
+  border-left: 2px solid var(--accent-blue);
   padding-left: 1rem;
 }
 
@@ -922,9 +951,9 @@ footer {
 }
 
 .candidate-radio input:checked ~ .candidate-card {
-  background-color: var(--text-color);
+  background-color: var(--accent-blue);
   color: var(--bg-color);
-  border-color: var(--text-color);
+  border-color: var(--accent-blue);
   transform: translateX(10px);
   box-shadow: -10px 10px 0 var(--accent-color);
 }
@@ -1002,7 +1031,7 @@ footer {
 }
 
 .receipt {
-  background-color: var(--text-color);
+  background-color: var(--accent-blue);
   color: var(--bg-color);
   padding: 2rem;
   max-width: 500px;
@@ -1180,4 +1209,99 @@ footer {
   text-align: center;
   border-top: 2px solid var(--bg-color);
   opacity: 0.5;
+}
+
+/* Share Section */
+.share-section {
+    margin: 0 auto 3rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}
+
+.share-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-share {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border: var(--border-style);
+    background: transparent;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-share::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+}
+
+.btn-share:hover::before {
+    transform: scaleY(1);
+}
+
+.btn-share.whatsapp {
+    color: #25D366;
+    border-color: #25D366;
+}
+
+.btn-share.whatsapp::before {
+    background-color: #25D366;
+}
+
+.btn-share.whatsapp:hover {
+    color: #000;
+}
+
+.btn-share.copy {
+    color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+
+.btn-share.copy::before {
+    background-color: var(--accent-secondary);
+}
+
+.btn-share.copy:hover {
+    color: var(--text-color);
+}
+
+.copy-confirm {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: #25D366;
+    font-family: var(--font-body);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.copy-confirm.visible {
+    opacity: 1;
 }

@@ -2,11 +2,28 @@
 
 import { useEffect } from 'react';
 import gsap from 'gsap';
+import { submitVote } from '../actions/vote';
+
 
 export default function VoteClientEffects() {
     useEffect(() => {
         const form = document.getElementById('voteForm');
         if (!form) return;
+
+        // ✅ Redirige vers step-4 directement si déjà voté
+        if (localStorage.getItem('upc_voted') === 'true') {
+            const allSteps = document.querySelectorAll('.vote-step');
+            allSteps.forEach(s => s.classList.remove('active'));
+            const step4 = document.getElementById('step-4');
+            if (step4) step4.classList.add('active');
+
+            // Cache la progress bar, inutile sur la confirmation
+            const progress = document.querySelector('.vote-progress');
+            if (progress) progress.style.display = 'none';
+
+            alert('Vous avez déjà voté');
+            return;
+        }
 
         const indicators = document.querySelectorAll('.step-indicator');
         let currentStep = 1;
@@ -76,23 +93,97 @@ export default function VoteClientEffects() {
         setupValidation('step-2', 'grade');
         setupValidation('step-3', 'candidate');
 
-        const onSubmit = (e) => {
+        const onSubmit = async (e) => {
             e.preventDefault();
 
-            const facultyVal = document.querySelector('input[name="faculty"]:checked')?.value || 'N/A';
-            const gradeVal = document.querySelector('input[name="grade"]:checked')?.value || 'N/A';
-            const candidateVal = document.querySelector('input[name="candidate"]:checked')?.value || 'N/A';
+            if (localStorage.getItem('upc_voted') === 'true') {
+                alert('Vous avez déjà voté. Un seul vote est autorisé.');
+                return;
+            }
+            const candidat_id = document.querySelector('input[name="candidate"]:checked')?.value
+            const id_faculty = Number(document.querySelector('input[name="faculty"]:checked')?.value)
+            const id_grade = Number(document.querySelector('input[name="grade"]:checked')?.value);
 
-            const facEl = document.getElementById('res-faculty');
-            const gradeEl = document.getElementById('res-grade');
-            const candEl = document.getElementById('res-candidate');
+            console.log('onSubmit', { candidat_id, id_faculty, id_grade });
 
-            if (facEl) facEl.innerText = facultyVal.toUpperCase();
-            if (gradeEl) gradeEl.innerText = gradeVal.toUpperCase();
-            if (candEl) candEl.innerText = candidateVal.toUpperCase();
+            // Labels pour l'affichage dans le receipt
+            const facultyLabel = (document.querySelector('input[name="faculty"]:checked'))
+                ?.closest('label')?.querySelector('.radio-content')?.textContent ?? 'N/A';
+            const gradeLabel = (document.querySelector('input[name="grade"]:checked'))
+                ?.closest('label')?.querySelector('.radio-content')?.textContent ?? 'N/A';
+            const candidateLabel = (document.querySelector('input[name="candidate"]:checked'))
+                ?.closest('label')?.querySelector('h3')?.textContent ?? 'N/A';
 
-            goToStep(4);
+            // Désactive le bouton pour éviter le double envoi
+            const submitBtn = document.querySelector('.submit-vote');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Envoie en cours...';
+            }
+
+            try {
+                await submitVote(candidat_id, id_faculty, id_grade);
+
+                localStorage.setItem('upc_voted', 'true');
+                // Mise à jour du receipt avec les labels lisibles
+                const facEl = document.getElementById('res-faculty');
+                const gradeEl = document.getElementById('res-grade');
+                const candEl = document.getElementById('res-candidate');
+                if (facEl) facEl.innerText = facultyLabel;
+                if (gradeEl) gradeEl.innerText = gradeLabel;
+                if (candEl) candEl.innerText = candidateLabel;
+
+                goToStep(4);
+                // ✅ Prépare le partage après le vote
+                goToStep(4);
+
+                // Partage
+                const siteUrl = `${window.location.origin}/vote`;
+                const waBtn = document.getElementById('share-whatsapp');
+                const copyBtn = document.getElementById('share-copy');
+                const copyConfirm = document.getElementById('copy-confirm');
+
+                const buildMessage = (name) =>
+                    `🗳️ Je viens de voter pour ${name} aux élections UPC '26 !\nSoutenez mon candidat et venez voter vous aussi 👉 ${siteUrl}`;
+
+                if (waBtn) {
+                    // Nettoie les anciens listeners si re-render
+                    const newWaBtn = waBtn.cloneNode(true);
+                    waBtn.parentNode?.replaceChild(newWaBtn, waBtn);
+
+                    newWaBtn.addEventListener('click', () => {
+                        const msg = buildMessage(candidateLabel);
+                        window.open(
+                            `https://wa.me/?text=${encodeURIComponent(msg)}`,
+                            '_blank'
+                        );
+                    });
+                }
+
+                if (copyBtn) {
+                    const newCopyBtn = copyBtn.cloneNode(true);
+                    copyBtn.parentNode?.replaceChild(newCopyBtn, copyBtn);
+
+                    newCopyBtn.addEventListener('click', async () => {
+                        const msg = buildMessage(candidateLabel);
+                        await navigator.clipboard.writeText(msg);
+
+                        if (copyConfirm) {
+                            copyConfirm.classList.add('visible');
+                            setTimeout(() => copyConfirm.classList.remove('visible'), 2500);
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Vote failed:', err);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'CAST VOTE';
+                }
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            }
         };
+
 
         form.addEventListener('submit', onSubmit);
 

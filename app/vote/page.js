@@ -17,7 +17,7 @@ export default async function VotePage() {
     const [facultyRes, gradeRes, candidatRes] = await Promise.all([
         supabase.from('faculty').select('*').order('nom', { ascending: true }),
         supabase.from('grade').select('*').order('nom', { ascending: true }),
-        supabase.from('candidat').select('id, nom, slogan, photo_url').order('created_at', { ascending: true }),
+        supabase.from('candidat').select('*').order('created_at', { ascending: false })
     ]);
 
     if (facultyRes.error) throw new Error(`faculty select failed: ${facultyRes.error.message}`);
@@ -27,6 +27,8 @@ export default async function VotePage() {
     const faculties = facultyRes.data ?? [];
     const grades = gradeRes.data ?? [];
     const candidats = candidatRes.data ?? [];
+
+
 
     return (
         <div className="vote-page">
@@ -73,7 +75,7 @@ export default async function VotePage() {
                                 const isFirst = idx === 0;
                                 return (
                                     <label className="brutalist-radio" key={row.id ?? label}>
-                                        <input type="radio" name="faculty" value={label} required={isFirst} />
+                                        <input type="radio" name="faculty" value={row.id} required={isFirst} />
                                         <span className="radio-content">{label.toUpperCase()}</span>
                                     </label>
                                 );
@@ -103,7 +105,7 @@ export default async function VotePage() {
                                 const isFirst = idx === 0;
                                 return (
                                     <label className="brutalist-radio" key={row.id ?? label}>
-                                        <input type="radio" name="grade" value={label} required={isFirst} />
+                                        <input type="radio" name="grade" value={row.id} required={isFirst} />
                                         <span className="radio-content">{label.toUpperCase()}</span>
                                     </label>
                                 );
@@ -135,7 +137,7 @@ export default async function VotePage() {
 
                                 return (
                                     <label className="candidate-radio" key={row.id ?? row.nom ?? idx}>
-                                        <input type="radio" name="candidate" value={row.nom ?? ''} required={isFirst} />
+                                        <input type="radio" name="candidate" value={row.id ?? ''} required={isFirst} />
                                         <div className="candidate-card">
                                             <div className="candidate-img-placeholder">{displayNumber}</div>
                                             <div className="candidate-details">
@@ -179,6 +181,16 @@ export default async function VotePage() {
                                         -
                                     </span>
                                 </div>
+                            </div>
+                            <div className="share-section">
+                                <span className="share-label">SHARE YOUR VOTE</span>
+                                <div className="share-buttons">
+                                    <button id="share-whatsapp" className="btn-share whatsapp">
+                                        📲 WHATSAPP
+                                    </button>
+
+                                </div>
+                                <span id="copy-confirm" className="copy-confirm">✓ COPIED TO CLIPBOARD</span>
                             </div>
                             <Link href="/" className="btn-primary">
                                 RETURN HOME
