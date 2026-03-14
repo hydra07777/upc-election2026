@@ -133,7 +133,7 @@ export default function VoteClientEffects() {
                 if (gradeEl) gradeEl.innerText = gradeLabel;
                 if (candEl) candEl.innerText = candidateLabel;
 
-                goToStep(4);
+
                 // ✅ Prépare le partage après le vote
                 goToStep(4);
 
@@ -233,7 +233,7 @@ export default function VoteClientEffects() {
             el.addEventListener('mouseenter', onEnter);
             el.addEventListener('mouseleave', onLeave);
         });
-
+        closeBtn?.addEventListener('click', closeMenu);
         return () => {
             nextBtns.forEach((btn) => btn.removeEventListener('click', onNext));
             prevBtns.forEach((btn) => btn.removeEventListener('click', onPrev));
