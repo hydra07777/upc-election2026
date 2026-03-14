@@ -111,6 +111,124 @@ a {
   background-color: #fff;
 }
 
+/* Hamburger — caché sur desktop */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 200;
+}
+
+.nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #fff;
+    transform-origin: center;
+    transition: all 0.3s;
+}
+
+/* Menu mobile overlay */
+.nav-mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.nav-mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+/* Bouton close dans le menu mobile */
+.nav-mobile-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px;
+    padding: 0;
+}
+
+.nav-mobile-close span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: var(--bg-color);
+    transform-origin: center;
+    position: absolute;
+}
+
+.nav-mobile-close span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.nav-mobile-close span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/* ✅ Cache le curseur custom quand le menu est ouvert */
+.nav-mobile-menu.open ~ .custom-cursor,
+body.menu-open .custom-cursor {
+    opacity: 0 !important;
+}
+
+.mobile-link {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 10vw, 4rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--bg-color);
+    letter-spacing: 0.05em;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.mobile-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: width 0.3s;
+}
+
+.mobile-link:hover::after,
+.mobile-link:focus::after {
+    width: 100%;
+}
+
+.mobile-link.accent {
+    color: var(--accent-color);
+}
+
 /* Hero Section */
 .hero-section {
   min-height: 100vh;
@@ -195,12 +313,14 @@ section {
 }
 
 .section-title {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  text-transform: uppercase;
-  margin-bottom: 4rem;
-  border-bottom: var(--border-style);
-  padding-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 4rem); /* ✅ Fluid, jamais trop grand */
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    border-bottom: var(--border-style);
+    padding-bottom: 1rem;
+    word-break: break-word; /* ✅ Coupe si nécessaire */
+    overflow-wrap: break-word;
 }
 
 /* Platform Section */
@@ -737,6 +857,30 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+  .nav-links {
+        display: none;
+    }
+
+    .nav-hamburger {
+        display: flex;
+    }
+
+    .nav-brand {
+        font-size: 1rem;
+    }
+
+    /* État ouvert du hamburger → croix */
+    .nav-hamburger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .nav-hamburger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    .nav-hamburger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
     .candidate,
     .candidate:nth-child(even) {
         grid-template-columns: 1fr;
@@ -756,7 +900,81 @@ footer {
     .candidate-info h3 {
         font-size: 2.5rem;
     }
+    
+    .result-main {
+        padding: 6rem 1.25rem 3rem;
+    }
 
+    .result-info {
+        gap: 0.75rem;
+    }
+
+    .result-bar-container {
+        height: 32px;
+    }
+
+    
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .result-title {
+        font-size: clamp(2.5rem, 14vw, 5rem);
+        line-height: 0.9;
+    }
+
+    .result-desc {
+        font-size: 1rem;
+        border-left: 2px solid var(--accent-color);
+        padding-left: 0.75rem;
+    }
+    .result-info {
+        display: flex;
+        flex-direction: column;  /* ✅ Empile verticalement */
+        align-items: flex-start;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .result-position {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+    }
+
+    .result-row:nth-child(1) .result-position {
+        font-size: 0.85rem;
+    }
+
+    .result-name {
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+        white-space: normal;      /* ✅ Autorise le retour à la ligne */
+        overflow: visible;
+        text-overflow: unset;
+        line-height: 1;
+    }
+
+    /* % et signe sur la même ligne */
+    .result-percentage-row {
+        display: flex;
+        align-items: baseline;
+        gap: 0.25rem;
+    }
+
+    .result-percentage {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
+    }
+
+    .footer-content h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 4rem); /* ✅ Fluid, jamais trop grand */
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    border-bottom: var(--border-style);
+    padding-bottom: 1rem;
+    word-break: break-word; /* ✅ Coupe si nécessaire */
+    overflow-wrap: break-word;
+}
     
 }
 
@@ -1094,18 +1312,18 @@ footer {
 }
 
 .result-title {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 12rem);
-  line-height: 0.85;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12vw, 12rem); /* ✅ clamp qui respecte l'écran */
+    line-height: 0.85;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    word-break: break-word; /* ✅ Coupe si vraiment nécessaire */
 }
-
 .result-title .accent {
-  color: var(--accent-color);
-  font-style: italic;
-  display: block;
-  padding-left: 5vw;
+    color: var(--accent-color);
+    font-style: italic;
+    display: block;
+    padding-left: 0; /* ✅ Supprime le padding gauche qui pousse hors écran */
 }
 
 .result-desc {
