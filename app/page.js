@@ -26,11 +26,23 @@ export default async function HomePage() {
                 <div className="nav-links">
                     <a href="#about">About</a>
                     <a href="#candidates">Candidates</a>
-                    <a href="#countdown" className="btn-primary">
-                        Countdown
-                    </a>
+                    <a href="#countdown" className="btn-primary">Countdown</a>
                 </div>
+                {/* ✅ Hamburger hors du mix-blend-mode */}
+                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                    <span /><span /><span />
+                </button>
             </nav>
+
+            <div className="nav-mobile-menu" id="nav-mobile-menu">
+                <button className="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">
+                    <span /><span />
+                </button>
+                <a href="#about" className="mobile-link">ABOUT</a>
+                <a href="#candidates" className="mobile-link">CANDIDATES</a>
+                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTE NOW →</a>
+            </div>
 
             <main>
                 <section className="hero-section">
