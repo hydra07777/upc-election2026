@@ -16,12 +16,22 @@ export default function CandidatePage() {
             <nav className="site-nav">
                 <div className="nav-brand">UPC '26 ELECTIONS</div>
                 <div className="nav-links">
-                    <Link href="/">← Back to Home</Link>
-                    <a href="#program" className="btn-primary">
-                        Full Program
-                    </a>
+                    <a href="#about">About</a>
+                    <a href="#candidates">Candidates</a>
+                    <a href="#countdown" className="btn-primary">Countdown</a>
                 </div>
+                {/* ✅ Hamburger hors du mix-blend-mode */}
+                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                    <span /><span /><span />
+                </button>
             </nav>
+
+            <div className="nav-mobile-menu" id="nav-mobile-menu">
+                <a href="#about" className="mobile-link">ABOUT</a>
+                <a href="#candidates" className="mobile-link">CANDIDATES</a>
+                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTE NOW →</a>
+            </div>
 
             <main>
                 <section className="candidate-hero">
