@@ -7,13 +7,43 @@ export const metadata = {
 };
 
 export default async function ResultPage() {
+
     const supabase = await createServerSupabaseClient();
 
-    const { data: results } = await supabase
-        .from('resultats')
-        .select('id, nom, pourcentage, nb_votes')
-        .order('nb_votes', { ascending: false });
+    // Fetch candidats + votes en parallèle
+    const [candidatsRes, votesRes] = await Promise.all([
+        supabase.from('candidat').select('id, nom, slogan').order('nom', { ascending: true }),
+        supabase.from('vote').select('candidat_id'),
+    ]);
 
+    const candidats = candidatsRes.data ?? [];
+    const votes = votesRes.data ?? [];
+
+    console.log(candidats, votes);
+    const totalVotes = votes.length;
+
+    // Compte les votes par candidat
+    const voteCount = {};
+    votes.forEach((v) => {
+        if (v.candidat_id) {
+            voteCount[v.candidat_id] = (voteCount[v.candidat_id] ?? 0) + 1;
+        }
+    });
+
+    // Construit le classement trié par votes décroissants
+    const standings = candidats
+        .map((c) => ({
+            id: c.id,
+            nom: c.nom ?? 'Unknown',
+            slogan: c.slogan ?? '',
+            votes: voteCount[c.id] ?? 0,
+            percentage: totalVotes > 0
+                ? Math.round(((voteCount[c.id] ?? 0) / totalVotes) * 100)
+                : 0,
+        }))
+        .sort((a, b) => b.votes - a.votes);
+
+    const ordinals = ['1ST', '2ND', '3RD', '4TH', '5TH', '6TH', '7TH'];
     return (
         <div className="result-page">
             <ResultClientEffects />
@@ -37,33 +67,47 @@ export default async function ResultPage() {
                             <span className="accent">STANDINGS</span>
                         </h1>
                         <p className="result-desc">Real-time voting poll updates. See where your candidate stands.</p>
+                        <p className="result-total">
+                            <span className="total-number">{totalVotes}</span>
+                            <span className="total-label"> VOTES CAST</span>
+                        </p>
                     </div>
                 </section>
 
                 <section className="standings-board">
                     <div className="results-container">
-                        {(results ?? []).map((row, idx) => {
-                            const pct = typeof row.pourcentage === 'number' ? row.pourcentage : parseFloat(row.pourcentage ?? '0');
-                            const safePct = Number.isFinite(pct) ? pct : 0;
-
-                            const positionLabel = idx === 0 ? '1ST' : idx === 1 ? '2ND' : idx === 2 ? '3RD' : `${idx + 1}TH`;
-
-                            return (
-                                <div className="result-row" key={row.id}>
-                                    <div className="result-info">
-                                        <span className="result-position">{positionLabel}</span>
-                                        <h3 className="result-name">{row.nom}</h3>
-                                        <span className="result-percentage" data-target={Math.round(safePct)}>
-                                            0
-                                        </span>
-                                        <span>%</span>
-                                    </div>
-                                    <div className="result-bar-container">
-                                        <div className="result-bar" data-width={`${safePct}%`} />
-                                    </div>
+                        {standings.map((candidate, idx) => (
+                            <div className="result-row" key={candidate.id}>
+                                <div className="result-info">
+                                    <span className="result-position">
+                                        {ordinals[idx] ?? `${idx + 1}TH`}
+                                    </span>
+                                    <h3 className="result-name">{candidate.nom}</h3>
+                                    <span
+                                        className="result-percentage"
+                                        data-target={candidate.percentage}
+                                    >
+                                        0
+                                    </span>
+                                    <span>%</span>
                                 </div>
-                            );
-                        })}
+                                {/* ✅ Votes absolus sous le nom */}
+                                <p className="result-votes-count">
+                                    {candidate.votes} vote{candidate.votes !== 1 ? 's' : ''}
+                                </p>
+                                <div className="result-bar-container">
+                                    <div
+                                        className="result-bar"
+                                        data-width={`${candidate.percentage}%`}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                        {standings.length === 0 && (
+                            <div className="no-results">
+                                <p>No votes recorded yet. Be the first!</p>
+                            </div>
+                        )}
                     </div>
                 </section>
 
