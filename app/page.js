@@ -176,6 +176,7 @@ export default async function HomePage() {
                                         "url('https://res.cloudinary.com/dnj1qfnrv/image/upload/v1773581251/upc-election/candidats/oezfldeqirfjvgupvpzk.jpg')",
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
+                                    backgroundPosition: " 5% 10%"
                                 }}
                             >
 
