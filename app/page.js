@@ -159,7 +159,7 @@ export default async function HomePage() {
                                 <div className="program">
                                     <h4>Points clés:</h4>
                                     <ul>
-                                        <li>BIENTOT DISPOSNIBLE</li>
+                                        <li>BIENTOT DISPONIBLE</li>
 
                                     </ul>
                                 </div>
@@ -188,7 +188,7 @@ export default async function HomePage() {
                                 <div className="program">
                                     <h4>Points clés:</h4>
                                     <ul>
-                                        <li>BIENTOT DISPOSNIBLE</li>
+                                        <li>BIENTOT DISPONIBLE</li>
                                     </ul>
                                     <p style={{ marginTop: '1.5rem' }}>
                                         <Link href="/candidate?eb3f1642-84c7-476c-85ef-a473ba335d48">Read more →</Link>
@@ -215,7 +215,7 @@ export default async function HomePage() {
                                 <div className="program">
                                     <h4>Points clés:</h4>
                                     <ul>
-                                        <li>BIENTOT DISPOSNIBLE</li>
+                                        <li>BIENTOT DISPONIBLE</li>
                                     </ul>
                                     <p style={{ marginTop: '1.5rem' }}>
                                         <Link href="/candidate?a015f954-b4de-454d-a053-f1ef94231fd3">Read more →</Link>
@@ -228,7 +228,7 @@ export default async function HomePage() {
                             <div className="candidate-image-placeholder"
                                 style={{
                                     backgroundImage:
-                                        "url('')",
+                                        "url('https://res.cloudinary.com/dnj1qfnrv/image/upload/v1773591783/upc-election/candidats/symj0kkcnngwv1cpwbnm.jpg')",
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     backgroundPosition: " 5% 50%"
@@ -237,15 +237,15 @@ export default async function HomePage() {
                                 <div className="candidate-number">04</div>
                             </div>
                             <div className="candidate-info">
-                                <h3>NON DISPOSNIBLE</h3>
-                                <p className="role">Vision: NON DISPONIBLE</p>
+                                <h3>BEL-ANGE ABUEZA</h3>
+                                <p className="role">Vision: CAP VERS L'EXCELLENCE</p>
                                 <div className="program">
                                     <h4>Points clés:</h4>
                                     <ul>
-                                        <li>NON DISPONIBLE</li>
+                                        <li>BIENTOT DISPONIBLE</li>
                                     </ul>
                                     <p style={{ marginTop: '1.5rem' }}>
-                                        <Link href="/candidate?eb3f1642-84c7-476c-85ef-a473ba335d48">Read more →</Link>
+                                        <Link href="/candidate?6f4eef42-17a5-4d21-b73b-3207494db24a">Read more →</Link>
                                     </p>
                                 </div>
                             </div>
