@@ -120,8 +120,8 @@ export default function CandidatePage() {
             <footer>
                 <div className="footer-content">
                     <h2>Believe in Better.</h2>
-                    <Link href="/#countdown" className="btn-massive">
-                        PLEDGE YOUR VOTE
+                    <Link href="/vote" className="btn-massive">
+                        VOTER
                     </Link>
                 </div>
                 <div className="footer-bottom">
