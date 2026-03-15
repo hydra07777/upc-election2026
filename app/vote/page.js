@@ -46,9 +46,7 @@ export default async function VotePage() {
                     <a href="/result" className="btn-primary">Resultats</a>
                 </div>
                 {/* ✅ Hamburger hors du mix-blend-mode */}
-                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
-                    <span /><span /><span />
-                </button>
+
             </nav>
 
             <div className="nav-mobile-menu" id="nav-mobile-menu" style={{ backgroundColor: '#1f1fa2' }}>
@@ -211,6 +209,9 @@ export default async function VotePage() {
                                     <button type="button" id="share-copy" className="btn-share copy">
                                         🔗 COPIER LE LIEN
                                     </button>
+                                    <Link href="/result" className="btn-primary">
+                                        RESULTATS
+                                    </Link>
                                 </div>
                                 <span id="copy-confirm" className="copy-confirm">✓ COPIÉ DANS LE PRESSE-PAPIERS</span>
                             </div>

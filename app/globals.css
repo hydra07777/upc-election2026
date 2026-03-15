@@ -1001,6 +1001,11 @@ footer {
 
 /* Mobile */
 @media (max-width: 480px) {
+
+  .confirmation-content {
+    margin: 0px;
+    height: 100%;
+  }
     .confirmation-content h1 {
         font-size: clamp(2rem, 10vw, 4rem);
     }
@@ -1347,9 +1352,10 @@ footer {
 /* Confirmation Step */
 .confirmation-content {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   border: var(--border-style);
   border-width: 4px;
+  height: fit-content;
 }
 
 .success-title {
