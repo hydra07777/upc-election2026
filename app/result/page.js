@@ -19,7 +19,7 @@ export default async function ResultPage() {
     const candidats = candidatsRes.data ?? [];
     const votes = votesRes.data ?? [];
 
-    console.log(candidats, votes);
+
     const totalVotes = votes.length;
 
     // Compte les votes par candidat
@@ -43,47 +43,50 @@ export default async function ResultPage() {
         }))
         .sort((a, b) => b.votes - a.votes);
 
-    const ordinals = ['1ST', '2ND', '3RD', '4TH', '5TH', '6TH', '7TH'];
+    const ordinals = ['1ER', '2EME', '3EME', '4EME', '5EME', '6TH', '7TH'];
     return (
         <div className="result-page">
             <ResultClientEffects />
 
             <div className="custom-cursor" />
             <div className="noise-overlay" />
-
             <nav className="site-nav">
                 <div className="nav-brand">UPC '26 ELECTIONS</div>
                 <div className="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#candidates">Candidates</a>
-                    <a href="#countdown" className="btn-primary">Countdown</a>
+                    <a href="/#about">About</a>
+                    <a href="/#candidates">Candidates</a>
+                    <a href="/#countdown" className="btn-primary">Countdown</a>
+                    <a href="/result" className="btn-primary">Resultats</a>
                 </div>
-                {/* ✅ Hamburger */}
+                {/* ✅ Hamburger hors du mix-blend-mode */}
                 <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
                     <span /><span /><span />
                 </button>
             </nav>
 
-            {/* ✅ Menu mobile overlay */}
             <div className="nav-mobile-menu" id="nav-mobile-menu">
-                <a href="#about" className="mobile-link">ABOUT</a>
-                <a href="#candidates" className="mobile-link">CANDIDATES</a>
-                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
-                <a href="/vote" className="mobile-link accent">VOTE NOW →</a>
+                <button className="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">
+                    <span /><span />
+                </button>
+                <a href="/#about" className="mobile-link">A PROPOS</a>
+                <a href="/#candidates" className="mobile-link">CANDIDATS</a>
+                <a href="/#countdown" className="mobile-link">CHRONO</a>
+
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTER →</a>
             </div>
 
             <main className="result-main">
                 <section className="result-hero">
                     <div className="result-header">
                         <h1 className="result-title">
-                            LIVE
+                            CLASSEMENTS
                             <br />
-                            <span className="accent">STANDINGS</span>
+                            <span className="accent">EN DIRECT</span>
                         </h1>
-                        <p className="result-desc">Real-time voting poll updates. See where your candidate stands.</p>
+                        <p className="result-desc">Suivez en temps réel les résultats des sondages. Découvrez la position de votre candidat.</p>
                         <p className="result-total">
-                            <span className="total-number">{totalVotes}</span>
-                            <span className="total-label"> VOTES CAST</span>
+
+
                         </p>
                     </div>
                 </section>
@@ -105,9 +108,7 @@ export default async function ResultPage() {
                                     </div>
                                 </div>
                                 {/* ✅ Votes absolus sous le nom */}
-                                <p className="result-votes-count">
-                                    {candidate.votes} vote{candidate.votes !== 1 ? 's' : ''}
-                                </p>
+
                                 <div className="result-bar-container">
                                     <div
                                         className="result-bar"
@@ -126,7 +127,7 @@ export default async function ResultPage() {
 
                 <section className="vote-cta-section">
                     <div className="cta-content">
-                        <h2 className="cta-heading">Not Voted Yet?</h2>
+                        <h2 className="cta-heading">Pas encore voté ?</h2>
                         <Link href="/vote" className="btn-massive cta-btn">
                             VOTE NOW!
                         </Link>
@@ -134,9 +135,18 @@ export default async function ResultPage() {
                 </section>
             </main>
 
-            <footer className="minimal-footer">
+            <footer style={{ backgroundColor: '#C8281E' }} >
+
                 <div className="footer-bottom">
-                    <p>&copy; 2026 UPC Elections - Official Portal.</p>
+                    <p>&copy; 2026 UPC Elections.</p>
+                    <p style={{ marginTop: '1rem' }}>
+                        <Link href="/vote">Vote →</Link>
+                        {'  '}|{'  '}
+                        <Link href="/result">Resultats →</Link>
+                    </p>
+                    <p>
+                        Made by ArcaneCore
+                    </p>
                 </div>
             </footer>
         </div>

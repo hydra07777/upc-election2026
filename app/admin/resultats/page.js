@@ -6,6 +6,30 @@ export default async function AdminResultatsPage() {
 
     return (
         <div>
+            <nav className="site-nav">
+                <div className="nav-brand">UPC '26 ELECTIONS</div>
+                <div className="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#candidates">Candidates</a>
+                    <a href="#countdown" className="btn-primary">Countdown</a>
+                    <a href="/result" className="btn-primary">Resultats</a>
+                </div>
+                {/* ✅ Hamburger hors du mix-blend-mode */}
+                <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                    <span /><span /><span />
+                </button>
+            </nav>
+
+            <div className="nav-mobile-menu" id="nav-mobile-menu">
+                <button className="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">
+                    <span /><span />
+                </button>
+                <a href="#about" className="mobile-link">ABOUT</a>
+                <a href="#candidates" className="mobile-link">CANDIDATES</a>
+                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
+                <a href="/result" className="mobile-link mobile-link-accent">RESULTATS →</a>
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTE NOW →</a>
+            </div>
             <h1 className="section-title" style={{ marginBottom: '2rem' }}>
                 RESULTATS
             </h1>

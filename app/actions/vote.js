@@ -37,3 +37,4 @@ export async function submitVote(candidat_id, id_faculty, id_grade) {
 
 
 }
+
