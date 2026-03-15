@@ -40,9 +40,10 @@ export default async function VotePage() {
             <nav className="site-nav">
                 <div className="nav-brand">UPC '26 ELECTIONS</div>
                 <div className="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#candidates">Candidates</a>
-                    <a href="#countdown" className="btn-primary">Countdown</a>
+                    <a href="/#about">About</a>
+                    <a href="/#candidates">Candidates</a>
+                    <a href="/#countdown" className="btn-primary">Countdown</a>
+                    <a href="/result" className="btn-primary">Resultats</a>
                 </div>
                 {/* ✅ Hamburger hors du mix-blend-mode */}
                 <button className="nav-hamburger" id="nav-hamburger" aria-label="Menu">
@@ -50,23 +51,27 @@ export default async function VotePage() {
                 </button>
             </nav>
 
-            <div className="nav-mobile-menu" id="nav-mobile-menu">
-                <a href="#about" className="mobile-link">ABOUT</a>
-                <a href="#candidates" className="mobile-link">CANDIDATES</a>
-                <a href="#countdown" className="mobile-link">COUNTDOWN</a>
-                <a href="/vote" className="mobile-link mobile-link-accent">VOTE NOW →</a>
-            </div>
+            <div className="nav-mobile-menu" id="nav-mobile-menu" style={{ backgroundColor: '#1f1fa2' }}>
+                <button className="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">
+                    <span /><span />
+                </button>
+                <a href="/" className="mobile-link">ACCUEIL</a>
+                <a href="/#about" className="mobile-link">A PROPOS</a>
+                <a href="/#candidates" className="mobile-link">CANDIDATS</a>
 
+                <a href="/result" className="mobile-link mobile-link-accent">RESULTATS →</a>
+                <a href="/vote" className="mobile-link mobile-link-accent">VOTER →</a>
+            </div>
 
 
             <main className="vote-main">
                 <form id="voteForm" className="vote-container">
                     <div className="vote-progress">
                         <span className="step-indicator active" data-step="1">
-                            01 / FACULTY
+                            01 / FACULTE
                         </span>
                         <span className="step-indicator" data-step="2">
-                            02 / GRADE
+                            02 / ANNEE
                         </span>
                         <span className="step-indicator" data-step="3">
                             03 / PRESIDENT
@@ -76,11 +81,11 @@ export default async function VotePage() {
                     <section className="vote-step active" id="step-1">
                         <div className="step-header">
                             <h1 className="step-title">
-                                SELECT
+                                CHOISIR
                                 <br />
-                                <span className="accent">FACULTY</span>
+                                <span className="accent">FACULTE</span>
                             </h1>
-                            <p className="step-desc">Choose your registered academic faculty.</p>
+                            <p className="step-desc">Choisissez votre faculté académique inscrite.</p>
                         </div>
                         <div className="options-grid">
                             {(faculties ?? []).map((row, idx) => {
@@ -106,11 +111,11 @@ export default async function VotePage() {
                     <section className="vote-step" id="step-2">
                         <div className="step-header">
                             <h1 className="step-title">
-                                ACADEMIC
+                                ANNEE
                                 <br />
-                                <span className="accent">GRADE</span>
+                                <span className="accent">ACADEMIQUE</span>
                             </h1>
-                            <p className="step-desc">Select your current year of study.</p>
+                            <p className="step-desc">Sélectionnez votre année académique actuelle.</p>
                         </div>
                         <div className="options-grid year-grid">
                             {(grades ?? []).map((row, idx) => {
@@ -128,7 +133,7 @@ export default async function VotePage() {
                         </div>
                         <div className="step-actions split">
                             <button type="button" className="btn-secondary prev-step">
-                                ← BACK
+                                ← RETOUR
                             </button>
                             <button type="button" className="btn-primary next-step" disabled>
                                 CONTINUE →
@@ -139,11 +144,11 @@ export default async function VotePage() {
                     <section className="vote-step" id="step-3">
                         <div className="step-header">
                             <h1 className="step-title">
-                                PRESIDENTIAL
+                                PRESIDENTIEL
                                 <br />
-                                <span className="accent">CHOICE</span>
+                                <span className="accent">CHOIX</span>
                             </h1>
-                            <p className="step-desc">Select a candidate for the presidency.</p>
+                            <p className="step-desc">Sélectionnez un candidat pour la présidence.</p>
                         </div>
                         <div className="candidates-selection">
                             {(candidats ?? []).map((row, idx) => {
@@ -166,10 +171,10 @@ export default async function VotePage() {
                         </div>
                         <div className="step-actions split">
                             <button type="button" className="btn-secondary prev-step">
-                                ← BACK
+                                ← RETOUR
                             </button>
                             <button type="submit" className="btn-massive submit-vote" disabled>
-                                CAST VOTE
+                                VOTER
                             </button>
                         </div>
                     </section>
@@ -177,45 +182,60 @@ export default async function VotePage() {
                     <section className="vote-step" id="step-4">
                         <div className="confirmation-content">
                             <h1 className="success-title">
-                                APPLICATION
+                                DEMANDE
                                 <br />
-                                <span className="accent">SENT</span>
+                                <span className="accent">ENVOYÉE</span>
                             </h1>
                             <p className="success-message">
-                                Your voice has been recorded. Thank you for participating in the UPC '26 Elections.
+                                Votre voix a été enregistrée. Merci d'avoir participé aux élections UPC '26.
                             </p>
                             <div className="receipt">
                                 <div className="receipt-row">
-                                    <span>FACULTY:</span> <span id="res-faculty">-</span>
+                                    <span>FACULTE:</span> <span id="res-faculty">-</span>
                                 </div>
                                 <div className="receipt-row">
-                                    <span>GRADE:</span> <span id="res-grade">-</span>
+                                    <span>ANNEE:</span> <span id="res-grade">-</span>
                                 </div>
                                 <div className="receipt-row">
-                                    <span>CANDIDATE:</span> <span id="res-candidate" className="accent">
+                                    <span>CANDIDAT:</span> <span id="res-candidate" className="accent">
                                         -
                                     </span>
                                 </div>
                             </div>
                             <div className="share-section">
-                                <span className="share-label">SHARE YOUR VOTE</span>
+                                <span className="share-label">PARTAGEZ VOTRE VOTE</span>
                                 <div className="share-buttons">
-                                    <button id="share-whatsapp" className="btn-share whatsapp">
+                                    <button type="button" id="share-whatsapp" className="btn-share whatsapp">
                                         📲 WHATSAPP
                                     </button>
-                                    <button id="share-copy" className="btn-share copy">
-                                        🔗 COPY LINK
+                                    <button type="button" id="share-copy" className="btn-share copy">
+                                        🔗 COPIER LE LIEN
                                     </button>
                                 </div>
-                                <span id="copy-confirm" className="copy-confirm">✓ COPIED TO CLIPBOARD</span>
+                                <span id="copy-confirm" className="copy-confirm">✓ COPIÉ DANS LE PRESSE-PAPIERS</span>
                             </div>
                             <Link href="/" className="btn-primary">
-                                RETURN HOME
+                                RETOURNER À L'ACCUEIL
                             </Link>
                         </div>
                     </section>
                 </form>
             </main>
+            <footer style={{ backgroundColor: '#C8281E' }} >
+
+                <div className="footer-bottom">
+                    <p>&copy; 2026 UPC Elections.</p>
+                    <p style={{ marginTop: '1rem' }}>
+                        <Link href="/vote">Vote →</Link>
+                        {'  '}|{'  '}
+                        <Link href="/result">Resultats →</Link>
+                    </p>
+                    <p>
+                        Made by ArcaneCore
+                    </p>
+                </div>
+            </footer>
         </div>
+
     );
 }
