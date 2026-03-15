@@ -1,19 +1,5 @@
 {
-  "node": {
-    "70177415de26867398531583f9f1cc0b29cfb9ce65": {
-      "workers": {
-        "app/vote/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CCESAR%20PAYSAYO%5C%5CDocuments%5C%5Cclayude%5C%5Cupc-election-v2%5C%5Capp%5C%5Cactions%5C%5Cvote.js%22%2C%5B%7B%22id%22%3A%2270177415de26867398531583f9f1cc0b29cfb9ce65%22%2C%22exportedName%22%3A%22submitVote%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CCESAR%20PAYSAYO%5C%5CDocuments%5C%5Cclayude%5C%5Cupc-election-v2%5C%5Capp%5C%5Cactions%5C%5Cvote.js%22%7D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/vote/page": "action-browser"
-      },
-      "filename": "../C:\\Users\\CESAR PAYSAYO\\Documents\\clayude\\upc-election-v2\\app\\actions\\vote.js",
-      "exportedName": "submitVote"
-    }
-  },
+  "node": {},
   "edge": {},
   "encryptionKey": "6R65l0XK4lN6K0+Fbs1URr6UPwrlWTz3jRsxlo70vz0="
 }

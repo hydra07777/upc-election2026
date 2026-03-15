@@ -3,6 +3,9 @@ import './globals.css';
 export const metadata = {
   title: "UPC Elections - Vote for Change",
   description: "UPC '26 Elections portal",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
