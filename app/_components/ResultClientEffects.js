@@ -188,7 +188,7 @@ export default function ResultClientEffects() {
         mobileLinks.forEach((link) => {
             link.addEventListener('click', closeMenu);
         });
-
+        const closeBtn = document.getElementById('nav-mobile-close');
         closeBtn?.addEventListener('click', closeMenu);
         return () => {
             document.removeEventListener('mousemove', onMouseMove);
