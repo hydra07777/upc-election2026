@@ -14,12 +14,19 @@ export default function VoteClientEffects() {
         if (localStorage.getItem('upc_voted') === 'true') {
             const allSteps = document.querySelectorAll('.vote-step');
             allSteps.forEach(s => s.classList.remove('active'));
+
             const step4 = document.getElementById('step-4');
             if (step4) step4.classList.add('active');
 
-            // Cache la progress bar, inutile sur la confirmation
             const progress = document.querySelector('.vote-progress');
             if (progress) progress.style.display = 'none';
+
+            // ✅ Désactive tous les inputs required pour éviter la validation HTML
+            const allInputs = document.querySelectorAll('input[required]');
+            allInputs.forEach((input) => {
+                input.required = false;
+                input.disabled = true;
+            });
 
             alert('Vous avez déjà voté');
             return;
@@ -233,6 +240,7 @@ export default function VoteClientEffects() {
             el.addEventListener('mouseenter', onEnter);
             el.addEventListener('mouseleave', onLeave);
         });
+        const closeBtn = document.getElementById('nav-mobile-close');
         closeBtn?.addEventListener('click', closeMenu);
         return () => {
             nextBtns.forEach((btn) => btn.removeEventListener('click', onNext));
@@ -244,6 +252,38 @@ export default function VoteClientEffects() {
             leaveHandlers.forEach(([el, fn]) => el.removeEventListener('mouseleave', fn));
         };
     }, []);
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    let menuOpen = false;
+
+    const toggleMenu = () => {
+        menuOpen = !menuOpen;
+        hamburger?.classList.toggle('open', menuOpen);
+        mobileMenu?.classList.toggle('open', menuOpen);
+        // Bloque le scroll quand menu ouvert
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+    };
+
+    const closeMenu = () => {
+        menuOpen = false;
+        hamburger?.classList.remove('open');
+        mobileMenu?.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    hamburger?.addEventListener('click', toggleMenu);
+
+    // Ferme le menu quand on clique un lien
+    mobileLinks.forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    const closeBtn = document.getElementById('nav-mobile-close');
+    closeBtn?.addEventListener('click', closeMenu);
+
 
     return null;
 }
