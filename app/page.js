@@ -251,6 +251,36 @@ export default async function HomePage() {
                             </div>
                         </div>
 
+                        <div className="candidate reveal">
+                            <div className="candidate-image-placeholder"
+                                style={{
+                                    backgroundImage:
+                                        "url('https://res.cloudinary.com/dnj1qfnrv/image/upload/v1773657166/upc-election/candidats/dybud1ai7pi6ugse5sdv.jpg')",
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundPosition: " 50% 50%"
+                                }}
+                            >
+                                <div className="candidate-number">05</div>
+                            </div>
+                            <div className="candidate-info">
+                                <h3> GOATY </h3>
+                                <p className="role">Vision: BEEEEEEEE</p>
+                                <div className="program">
+                                    <h4>Points clés:</h4>
+                                    <ul>
+                                        <li>Kiosque gratuit</li>
+                                        <li>Coca gratuit</li>
+                                        <li>Vody gratuit</li>
+                                        <li>Chawarma gratuit</li>
+                                    </ul>
+                                    <p style={{ marginTop: '1.5rem' }}>
+                                        <Link href="/candidate?id=goaty">Read more →</Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </section>
