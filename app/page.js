@@ -288,7 +288,7 @@ export default async function HomePage() {
                 <section className="marquee-section">
                     <div className="marquee">
                         <span>
-                            VOTRE VOIX COMPTE • UPC '26 ELECTIONS • 4 CANDIDATS • 1 FUTURE • VOTRE VOIX COMPTE • UPC '26 ELECTIONS •
+                            VOTRE VOIX COMPTE • UPC '26 ELECTIONS • 5 CANDIDATS • 1 FUTURE • VOTRE VOIX COMPTE • UPC '26 ELECTIONS •
                         </span>
                     </div>
                 </section>
