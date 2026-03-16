@@ -123,7 +123,7 @@ export default async function HomePage() {
                         </div>
                         <div className="about-stats reveal">
                             <div className="stat">
-                                <span className="stat-number">4</span>
+                                <span className="stat-number">5</span>
                                 <span className="stat-label">CANDIDATS</span>
                             </div>
                             <div className="stat">
